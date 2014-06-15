@@ -5,6 +5,6 @@ Syntax highlighting for Microsoft's Boogie verification language to be used with
 
 Boogie is an open-source project and can be found in CodePlex:
 
-* [Boogie @ CodePlex][1] (worldwide - free)
+* [Boogie @ CodePlex][1]
 
 [1]: https://boogie.codeplex.com
