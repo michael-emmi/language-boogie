@@ -84,7 +84,7 @@
   'keywords':
     'patterns': [
       {
-        'match': '\\b(axiom|complete|const|finite|free|function|implementation|invariant|modifies|old|procedure|requires|returns|type|unique|where)\\b'
+        'match': '\\b(axiom|complete|const|finite|free|function|implementation|invariant|old|procedure|returns|type|unique|where|if|then|else|while|goto|return)\\b'
         'name': 'keyword.control.boogie'
       }
       {
@@ -92,16 +92,8 @@
         'name': 'constant.language.boogie'
       }
       {
-        'match': '\\b(forall|exists)\\b'
-        'name': 'keyword.quantifiers.boogie'
-      }
-      {
-        'match': '\\b(assert|assume|break|call|else|ensures|goto|havoc|if|return|while)\\b'
-        'name': 'keyword.operator.statement.boogie'
-      }
-      {
-        'match': '\\b(var)\\b'
-        'name': 'keyword.declaration.boogie'
+        'match': '\\b(var|assert|assume|break|call|havoc|requires|ensures|modifies|forall|exists)\\b'
+        'name': 'entity.name.procedure.boogie'
       }
       {
         'match': '(::)'
@@ -149,7 +141,7 @@
     'patterns': [
       {
         'match': '(\\s*([^: ]+):(\n|\r))'
-        'name': 'entity.name.procedure.boogie'
+        'name': 'keyword.declaration.boogie'
       }
     ]
 'scopeName': 'source.bpl'
