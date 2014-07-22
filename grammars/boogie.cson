@@ -148,11 +148,8 @@
   'labels':
     'patterns': [
       {
-        'match': '^(\\s*([^: ]+):)\\s*$'
-        'captures':
-          '2':
-            'name': 'entity.name.label.boogie'
-        'name': 'meta.label.identifier.boogie'
+        'match': '(\\s*([^: ]+):(\n|\r))'
+        'name': 'entity.name.procedure.boogie'
       }
     ]
 'scopeName': 'source.bpl'
