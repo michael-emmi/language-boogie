@@ -1,5 +1,5 @@
 'fileTypes': [
-  'bpl'
+  'bpl', 'gbpl', 'wbpl'
 ]
 'foldingStartMarker': '/\\*\\*|\\{\\s*$'
 'foldingStopMarker': '\\*\\*/|^\\s*\\}'
