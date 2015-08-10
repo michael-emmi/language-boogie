@@ -1,11 +1,10 @@
 {
   "name": "language-boogie",
   "version": "1.0",
-  "description": "A language grammar for the Boogie intermediate verification language.",
-  "repository": "https://github.com/michael-emmi/language-boogie",
-  "license": "MIT",
+  "description": "Boogie language support in Atom.",
   "engines": {
-    "atom": ">0.50.0"
+    "atom": "*"
   },
-  "dependencies": {}
+  "license": "MIT",
+  "repository": "https://github.com/michael-emmi/language-boogie"
 }
