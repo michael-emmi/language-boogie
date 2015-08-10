@@ -1,8 +1,8 @@
 {
-  "name": "boogie-for-atom",
-  "version": "2.1.4",
-  "description": "Syntax highlighting for Microsoft's Boogie verification language to be used with the Atom text editor.",
-  "repository": "https://github.com/pdeligia/boogie-for-atom",
+  "name": "language-boogie",
+  "version": "1.0",
+  "description": "A language grammar for the Boogie intermediate verification language.",
+  "repository": "https://github.com/michael-emmi/language-boogie",
   "license": "MIT",
   "engines": {
     "atom": ">0.50.0"

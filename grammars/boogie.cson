@@ -1,14 +1,17 @@
+'scopeName': 'source.bpl'
+'name': 'Boogie'
 'fileTypes': [
-  'bpl', 'gbpl', 'wbpl'
+  'bpl'
+  'gbpl'
+  'wbpl'
 ]
 'foldingStartMarker': '/\\*\\*|\\{\\s*$'
 'foldingStopMarker': '\\*\\*/|^\\s*\\}'
-'name': 'Boogie'
 'patterns': [
   {
+    'name': 'string.quoted.double.untitled'
     'begin': '"'
     'end': '"'
-    'name': 'string.quoted.double.untitled'
     'patterns': [
       {
         'match': '\\\\.'
@@ -17,20 +20,55 @@
     ]
   }
   {
+    'name': 'comment.block.boogie'
     'begin': '/\\*'
     'end': '\\*/'
-    'name': 'comment.block.boogie'
   }
   {
-    'match': '(//).*$\\n?'
     'name': 'comment.line.double-slash.boogie'
+    'match': '(//).*$\\n?'
   }
   {
-    'include': '#functions'
+    'name': 'string.other.attribute.boogie'
+    'begin': '{:'
+    'end': '}'
+    'patterns': [
+      {
+        'include': '#constants-and-special-vars'
+      }
+    ]
   }
   {
-    'include': '#procedures'
+    'name': 'storage.type.modifier.tag.boogie'
+    'match': '<[\\w\\s,]+>'
   }
+
+  # XXX figure out a way to capture the function name? XXX
+  # {
+  #   'name': 'meta.function.identifier.boogie'
+  #   'begin': '(function) ??? ([\\w$.]+) ??? \\('
+  #   'beginCaptures':
+  #     '1':
+  #       'name': 'storage.type.declaration.boogie'
+  #     '2':
+  #       'name': 'entity.name.function.boogie'
+  #   'end': ';|{'
+  # }
+
+  # XXX figure out a way to capture the procedure name? XXX
+  # {
+  #   'name': 'meta.procedure.identifier.boogie'
+  #   'begin': '(procedure) ??? ([\\w$.]+) ??? \\('
+  #   'beginCaptures':
+  #     '1':
+  #       'name': 'storage.type.declaration.boogie'
+  #     '2':
+  #       'name': 'entity.name.procedure.boogie'
+  #   'end': '\\)(\\s+(returns)\\s*\\(.*\\))?'
+  # }
+
+  # XXX capture other declaration names: constants, variables, etc.
+
   {
     'include': '#constants-and-special-vars'
   }
@@ -38,110 +76,95 @@
     'include': '#keywords'
   }
   {
-    'include': '#labels'
+    'match': '(\\s*([^: ]+):(\n|\r))'
+    'name': 'entity.name.block.boogie'
+  }
+  {
+    'match': ';'
+    'name': 'punctuation.terminator.boogie'
   }
 ]
 'repository':
   'constants-and-special-vars':
     'patterns': [
       {
-        'match': '\\b(true|false)\\b'
-        'name': 'constant.language.bpl'
+        'name': 'constant.language.boolean.bpl'
+        'match': '(?<![\\w$.])(true|false)(?![\\w$.])'
       }
       {
-        'match': '\\b(([0-9]+))\\b'
-        'name': 'constant.numeric.bpl'
+        'name': 'constant.numberic.bitvector.bpl'
+        'match': '(?<![\\w$.])[0-9]+bv[0-9]+(?![\\w$.])'
       }
-    ]
-  'functions':
-    'patterns': [
       {
-        'begin': '(function)\\s+(\\w+)((<)\\w+(>))?\\s*\\('
-        'beginCaptures':
-          '1':
-            'name': 'keyword.control.boogie'
-          '2':
-            'name': 'entity.name.function.boogie'
-          '4':
-            'name': 'keyword.operator.tag.boogie'
-          '5':
-            'name': 'keyword.operator.tag.boogie'
-        'end': ';|{'
-        'name': 'meta.function.identifier.boogie'
-        'patterns': [
-          {
-            'include': '#constants-and-special-vars'
-          }
-          {
-            'include': '#keywords'
-          }
-          {
-            'include': '#labels'
-          }
-        ]
+        'name': 'constant.numeric.integer.bpl'
+        'match': '(?<![\\w$.])[0-9]+(?![\\w$.])'
       }
+      # {
+      #   # XXX what is this for? XXX
+      #   'name': 'constant.language.boogie'
+      #   'match': '(?<=[\\r\\n \\t\\(\\[\\],:])(bool|int)(?=[\\r\\n \\t\\)\\],;])'
+      # }
     ]
   'keywords':
     'patterns': [
       {
-        'match': '\\b(axiom|complete|const|finite|free|function|implementation|invariant|old|procedure|returns|type|unique|where|if|then|else|while|goto|return)\\b'
+        'name': 'storage.type.declaration.boogie'
+        'match': '\\b(axiom|const|function|implementation|procedure|type|var)\\b'
+      }
+      {
+        'name': 'storage.type.boogie'
+        'match': '(?<![\\w$.])(int|bool|real|bv[0-9]+)(?![\\w$.])'
+      }
+      {
+        'name': 'storage.modifier.boogie'
+        'match': '(?<![\\w$.])(complete|finite|free|unique|where)(?![\\w$.])'
+      }
+      {
+        'name': 'keyword.other.specification.boogie'
+        'match': '\\b(requires|ensures|modifies|returns|invariant)\\b'
+      }
+      {
         'name': 'keyword.control.boogie'
+        'match': '\\b(break|call|while|goto|return)\\b'
       }
       {
-        'match': '(?<=[\\r\\n \\t\\(\\[\\],:])(bool|int)(?=[\\r\\n \\t\\)\\],;])'
-        'name': 'constant.language.boogie'
+        'name': 'keyword.control.conditional.boogie'
+        'match': '\\b(if|then|else)\\b'
       }
       {
-        'match': '\\b(var|assert|assume|break|call|havoc|requires|ensures|modifies|forall|exists)\\b'
-        'name': 'entity.name.procedure.boogie'
+        'name': 'keyword.control.statement.boogie'
+        'match': '\\b(assert|assume|havoc)\\b'
       }
       {
-        'match': '(::)'
-        'name': 'keyword.separator.boogie'
-      }
-      {
-        'match': '(<==>|==>|&&|\\|\\|)'
-        'name': 'keyword.operator.logical.binop.boogie'
-      }
-      {
-        'match': '(==|!=|<=|>=|<:|<|>)'
-        'name': 'keyword.operator.comparison.boogie'
-      }
-      {
-        'match': '(:=)'
         'name': 'keyword.operator.assignment.boogie'
+        'match': '(:=)'
       }
       {
-        'match': '(\\-|\\+|\\*|\\/|%)'
+        'name': 'keyword.operator.old.boogie'
+        'match': '\\bold\\b'
+      }
+      {
+        'name': 'keyword.operator.logical.quantifier.boogie'
+        'match': '\\b(forall|exists)\\b'
+      }
+      {
+        'name': 'keyword.operator.logical.boogie'
+        'match': '::'
+      }
+      {
+        'name': 'keyword.operator.logical.unary.boogie'
+        'match': '!|:'
+      }
+      {
+        'name': 'keyword.operator.logical.binary.boogie'
+        'match': '<==>|==>|&&|\\|\\|'
+      }
+      {
+        'name': 'keyword.operator.comparison.boogie'
+        'match': '==|!=|<=|>=|<:|<|>'
+      }
+      {
         'name': 'keyword.operator.arithmetic.boogie'
-      }
-      {
-        'match': '(!|:)'
-        'name': 'keyword.operator.logical.unop.boogie'
-      }
-      {
-        'match': ';'
-        'name': 'punctuation.terminator.boogie'
+        'match': '\\-|\\+|\\*|\\/|%'
       }
     ]
-  'procedures':
-    'patterns': [
-      {
-        'begin': '(procedure)\\s+(\\w+)\\s*\\('
-        'beginCaptures':
-          '1':
-            'name': 'keyword.control.boogie'
-          '2':
-            'name': 'entity.name.procedure.boogie'
-        'end': '\\)(\\s+(returns)\\s*\\(.*\\))?'
-        'name': 'meta.procedure.identifier.boogie'
-      }
-    ]
-  'labels':
-    'patterns': [
-      {
-        'match': '(\\s*([^: ]+):(\n|\r))'
-        'name': 'keyword.declaration.boogie'
-      }
-    ]
-'scopeName': 'source.bpl'
