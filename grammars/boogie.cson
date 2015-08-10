@@ -140,11 +140,11 @@
         'match': '(:=)'
       }
       {
-        'name': 'keyword.operator.old.boogie'
+        'name': 'keyword.other.old.boogie'
         'match': '\\bold\\b'
       }
       {
-        'name': 'keyword.operator.logical.quantifier.boogie'
+        'name': 'keyword.other.logical.quantifier.boogie'
         'match': '\\b(forall|exists)\\b'
       }
       {
